@@ -46,16 +46,17 @@ async function startScraping(query){
     const listadoResultados = await getResultsFromGoogle(query, browser);
     //getResultsFromGoogle(query, browser);
 
-    console.log(listadoResultados);
+    //console.log(listadoResultados);
 
     for await (const url of listadoResultados){
         const contenido = await visitResultAndGetContent(url, browser);
         //console.log(contenido);
         allTexts.push(contenido);
-        console.log(allTexts);
     };
     //console.log(allTexts);
     await browser.close();
+    console.log(allTexts.index[5]);
+    return allTexts;
 }
 
 let queryTerminal = process.argv.slice(2)[0];
