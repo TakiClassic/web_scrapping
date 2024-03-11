@@ -1,0 +1,20 @@
+{
+  "name": "web_scrapping",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.9.2",
+    "playwright": "^1.42.1",
+    "puppeteer": "^22.4.1"
+  },
+  "description": ""
+}
