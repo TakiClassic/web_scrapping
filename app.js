@@ -2,21 +2,11 @@ import { chromium } from "playwright";
 
 import { createConnection } from 'mysql';
 
-const connection = createConnection({
+const con = createConnection({
   host: 'localhost',
   user: 'root',
   password: 'Totodile360!',
-});
-
-connection.connect((error) => {
-  if(error){
-    console.log('Error connecting to the MySQL Database');
-    return;
-  }
-  console.log('Connection established sucessfully');
-});
-connection.end((error) => {
-  console.log(error);
+  database: 'scrapping'
 });
 
 async function getResultsFromGoogle(query, browser){
@@ -68,7 +58,22 @@ async function startScraping(query){
     //console.log(listadoResultados);
 
     for await (const url of listadoResultados){
-        //console.log(url);
+        const con = createConnection({
+            host: 'localhost',
+            user: 'root',
+            password: 'Totodile360!',
+            database: 'scrapping'
+          });
+        con.connect(function(err) {
+            if (err) throw err;
+            console.log("Connected!");
+            var sql = "INSERT INTO data (id, title, url) VALUES (NULL, '" + url.title + "', '"+ url.url +"')";
+            con.query(sql, function (err, result) {
+              if (err) throw err;
+              console.log("1 record inserted");
+            });
+          });
+        console.log(url);
         const contenido = await visitResultAndGetContent(url, browser);
         //console.log(contenido);
         allTexts.push(contenido);
@@ -78,6 +83,6 @@ async function startScraping(query){
     return allTexts;
 }
 
-//let queryTerminal = process.argv.slice(2)[0];
+let queryTerminal = process.argv.slice(2)[0];
 
-//startScraping(queryTerminal);
+startScraping(queryTerminal);
