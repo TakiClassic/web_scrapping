@@ -1,5 +1,24 @@
 import { chromium } from "playwright";
 
+import { createConnection } from 'mysql';
+
+const connection = createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: 'Totodile360!',
+});
+
+connection.connect((error) => {
+  if(error){
+    console.log('Error connecting to the MySQL Database');
+    return;
+  }
+  console.log('Connection established sucessfully');
+});
+connection.end((error) => {
+  console.log(error);
+});
+
 async function getResultsFromGoogle(query, browser){
     const page = await browser.newPage();
     await page.goto('https://www.google.com/');
@@ -49,16 +68,16 @@ async function startScraping(query){
     //console.log(listadoResultados);
 
     for await (const url of listadoResultados){
+        //console.log(url);
         const contenido = await visitResultAndGetContent(url, browser);
         //console.log(contenido);
         allTexts.push(contenido);
     };
-    //console.log(allTexts);
+    console.log(allTexts);
     await browser.close();
-    console.log(allTexts.index[5]);
     return allTexts;
 }
 
-let queryTerminal = process.argv.slice(2)[0];
+//let queryTerminal = process.argv.slice(2)[0];
 
-startScraping(queryTerminal);
+//startScraping(queryTerminal);

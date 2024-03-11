@@ -3,7 +3,7 @@ import { createConnection } from 'mysql';
 const connection = createConnection({
   host: 'localhost',
   user: 'root',
-  password: 'password',
+  password: 'Totodile360!',
 });
 
 connection.connect((error) => {
@@ -14,4 +14,5 @@ connection.connect((error) => {
   console.log('Connection established sucessfully');
 });
 connection.end((error) => {
+  console.log(error);
 });
